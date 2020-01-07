@@ -8,12 +8,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="discovery-service" />
         <module name="income-service" />
-        <module name="edge-service" />
-        <module name="finance-composite-service" />
-        <module name="util" />
         <module name="registration-activate" />
-        <module name="auth-service" />
+        <module name="finance-composite-service" />
+        <module name="edge-service" />
+        <module name="util" />
         <module name="zipkin-server" />
+        <module name="auth-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

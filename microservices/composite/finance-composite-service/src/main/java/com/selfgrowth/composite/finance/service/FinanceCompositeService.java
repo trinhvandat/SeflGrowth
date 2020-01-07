@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -78,9 +79,75 @@ public class FinanceCompositeService {
         return updateIncomeResult;
     }
 
+
     /**
      * DELETE API
      */
+    @DeleteMapping(value = "/income/{id}", produces = "application/json")
+    public ResponseEntity<String> deleteIncome(@PathVariable int id){
+        String deleteIncomeResult = deleteBasicIncome(id);
+        return utils.createOkResponse(deleteIncomeResult);
+    }
+
+    private String deleteBasicIncome(int id) {
+
+        ResponseEntity<String> responseEntity = integration.deleteIncome(id);
+        String deleteIncomeResult = null;
+
+        if(!responseEntity.getStatusCode().is2xxSuccessful()){
+            LOG.debug("call to deleteBasicIncome failed: " + responseEntity.getStatusCode());
+        }
+        else {
+            deleteIncomeResult = responseEntity.getBody();
+        }
+        return deleteIncomeResult;
+    }
 
 
+    /**
+     * GET INCOME WITH ID (API)
+     */
+    @GetMapping(value = "/income/{id}", produces = "application/json")
+    public ResponseEntity<IncomeDto> getIncome(@PathVariable int id){
+        IncomeDto incomeDto = getBasicIncome(id);
+        return utils.createOkResponse(incomeDto);
+    }
+
+    private IncomeDto getBasicIncome(int id) {
+        ResponseEntity<IncomeDto> responseEntity = integration.getIncome(id);
+        IncomeDto getIncomeResult = null;
+
+        if(!responseEntity.getStatusCode().is2xxSuccessful()){
+            LOG.debug("call to getBasicIncome failed: " + responseEntity.getStatusCode());
+        }
+        else {
+            getIncomeResult = responseEntity.getBody();
+        }
+
+        return getIncomeResult;
+    }
+
+
+    /**
+     * GET ALL INCOME
+     */
+    @GetMapping(value = "/income", produces = "application/json")
+    public ResponseEntity<List<IncomeDto>> getAllIncome(){
+        List<IncomeDto> incomeDtoList = getBasicAllIncome();
+        return utils.createOkResponse(incomeDtoList);
+    }
+
+    private List<IncomeDto> getBasicAllIncome() {
+        ResponseEntity<List<IncomeDto>> responseEntity = integration.getAllIncome();
+        List<IncomeDto> getAllIncomeResult = null;
+
+        if(!responseEntity.getStatusCode().is2xxSuccessful()){
+            LOG.debug("call to getBasicAllIncome failed: " + responseEntity.getStatusCode());
+        }
+        else {
+            getAllIncomeResult = responseEntity.getBody();
+        }
+
+        return getAllIncomeResult;
+    }
 }

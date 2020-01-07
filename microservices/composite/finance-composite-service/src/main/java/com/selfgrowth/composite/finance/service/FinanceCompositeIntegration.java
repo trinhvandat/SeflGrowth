@@ -169,12 +169,12 @@ public class FinanceCompositeIntegration {
     //  GET ALL INCOME //
     //-----------------//
     @HystrixCommand(fallbackMethod = "defaultGetAllIncome", commandProperties = {
-            @HystrixProperty(name = "executive.isolation.thread.timeoutInMilliseconds", value = "50000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "50000")
     })
     public ResponseEntity<List<IncomeDto>> getAllIncome(){
         LOG.debug("will call getAllIncome with hystrix protection");
 
-        String url = "http://finance-service";
+        String url = "http://finance-composite-service";
         LOG.debug("getAllIncome from url " + url);
 
         HttpHeaders headers = new HttpHeaders();
