@@ -15,7 +15,6 @@
         <module>auth-service</module>
         <module>discovery-service</module>
         <module>edge-service</module>
-        <module>registration-active</module>
         <module>registration-activate</module>
         <module>zipkin-server</module>
     </modules>
